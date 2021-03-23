@@ -1,6 +1,6 @@
-# github-update-issue
+# update-github-issue
 
-GitHub Issue の情報を(ZenHubも含めて)更新するDeno製のCLIツール。
+GitHub Issue の情報を (ZenHubも含めて) 更新するDeno製のCLIツール。
 
 ## 準備
 
@@ -18,12 +18,13 @@ GitHub Issue の情報を(ZenHubも含めて)更新するDeno製のCLIツール�
 
 ### ダウンロード
 
-[Releases](https://github.com/hyiromori/github-update-issue/releases) から使用したいバージョンのバイナリを落としてパスを通してください。
+[Releases](https://github.com/hyiromori/update-github-issue/releases) から使用したいバージョンのバイナリをダウンロードします。
+バイナリをパスが通ったディレクトリに移動し、実行権限を付与してください。
 
 ## 実行方法
 
 ```bash
-$ update-issue \
+$ update-github-issue \
     --labels "label1,label2" \
     --pipeline "ZenHub Pipeline Name" \
     --workspace "ZenHub Workspace ID" \
@@ -57,7 +58,6 @@ https://github.com/denoland/deno_install/blob/master/README.md
 
 ```bash
 $ ./build.sh
-# -> dist/update-issue
 ```
 
 ### ローカルでの実行

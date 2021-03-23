@@ -23,7 +23,6 @@ jobs:
       - name: Build
         run: |
           export PATH="${HOME}/.deno/bin:${PATH}"
-          env
           ./build.sh
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:

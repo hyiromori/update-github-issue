@@ -14,7 +14,7 @@ function build() {
        --allow-net \
        --allow-env \
        --target "${TARGET}" \
-       --output "${DIST_DIR}/update-issue_${TARGET}" \
+       --output "${DIST_DIR}/update-github-issue_${TARGET}" \
        "${INDEX_FILE_PATH}"
 }
 
