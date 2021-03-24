@@ -1,5 +1,6 @@
 import { getRepository } from "../github/get_repository.ts";
 import { fetchZenHub } from "./common.ts";
+import {debugLog} from "../logger.ts";
 
 interface Board {
   pipelines: {
@@ -15,8 +16,11 @@ export const getBoard = async (
   workspaceId: string,
 ): Promise<Board> => {
   const { id: repositoryId } = await getRepository(organization, repository);
-  return await fetchZenHub(
+  const board: Board = await fetchZenHub(
     "GET",
     `/p2/workspaces/${workspaceId}/repositories/${repositoryId}/board`,
   );
+
+  debugLog(`Board: ${JSON.stringify(board)}`)
+  return board
 };

@@ -1,6 +1,7 @@
 import { IssueInfo } from "../types.ts";
 import { getGitHubAccessToken } from "../env.ts";
 import { verbose } from "../args.ts";
+import {debugLog, infoLog} from "../logger.ts";
 
 const GitHubURL = "https://api.github.com";
 
@@ -27,8 +28,8 @@ export const updateIssue = async (
   if (!response.ok) {
     throw new Error("GitHub の Issue データの更新に失敗しました。");
   }
-  if (verbose()) {
-    const responseData = await response.json();
-    console.log("Response data:", JSON.stringify(responseData, null, 2));
-  }
+
+  infoLog(`Updated Issue: ${issue.url}`);
+  debugLog(`Update data: ${JSON.stringify(data)}`)
+  debugLog(`Response data: ${JSON.stringify(await response.json(), null, 2)}`);
 };

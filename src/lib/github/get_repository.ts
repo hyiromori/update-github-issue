@@ -1,5 +1,6 @@
 import { fetchGitHubGraphQL } from "./graphql.ts";
 import { decodeBase64 } from "../base64.ts";
+import { debugLog } from "../logger.ts";
 
 interface Repository {
   id: number;
@@ -28,6 +29,7 @@ export const getRepository = async (
       [""])[0],
     10,
   );
+  debugLog(`Repository ID: ${id} (${repository})`);
 
   const data: Repository = { id };
   cache[cacheKey] = data;

@@ -1,5 +1,6 @@
 import { getGitHubAccessToken } from "../env.ts";
 import { verbose } from "../args.ts";
+import { debugLog, infoLog } from "../logger.ts";
 
 const GitHubURL = "https://api.github.com";
 
@@ -28,10 +29,8 @@ export const createIssue = async (
   }
 
   const issue: IssueData = await response.json();
-  console.log("Created Issue: %s", issue.html_url);
-  if (verbose()) {
-    console.log("Response data:", JSON.stringify(issue, null, 2));
-  }
+  infoLog(`Created Issue: ${title} (${issue.html_url})`);
+  debugLog(`Response data: ${JSON.stringify(issue, null, 2)}`);
 
   return issue;
 };

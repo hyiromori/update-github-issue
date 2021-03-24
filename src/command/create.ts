@@ -14,7 +14,11 @@ import { movePipeline } from "../lib/zenhub/update_issue.ts";
 import { addEpic } from "../lib/zenhub/add_epic.ts";
 
 export const create = async (): Promise<void> => {
-  const { html_url: url } = await createIssue(getOwner(), getRepository(), getTitle());
+  const { html_url: url } = await createIssue(
+    getOwner(),
+    getRepository(),
+    getTitle(),
+  );
   const issue = checkGitHubIssueUrl(url);
 
   const epicUrl = getEpicUrl();

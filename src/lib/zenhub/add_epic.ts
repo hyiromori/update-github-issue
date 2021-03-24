@@ -2,6 +2,7 @@ import { IssueInfo } from "../types.ts";
 import { getRepository } from "../github/get_repository.ts";
 import { fetchZenHub } from "./common.ts";
 import { getBoard } from "./get_board.ts";
+import {infoLog} from "../logger.ts";
 
 interface Args {
   organization: string;
@@ -36,4 +37,5 @@ export const addEpic = async (args: Args): Promise<void> => {
       remove_issues: [],
     },
   );
+  infoLog(`Link epic: ${repository}/${issueNumber} => ${epicRepository}/${epicIssueNumber}`)
 };

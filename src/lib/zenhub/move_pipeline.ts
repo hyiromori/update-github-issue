@@ -2,6 +2,7 @@ import { IssueInfo } from "../types.ts";
 import { getRepository } from "../github/get_repository.ts";
 import { fetchZenHub } from "./common.ts";
 import { getBoard } from "./get_board.ts";
+import {infoLog} from "../logger.ts";
 
 interface Args {
   issueNumber: number;
@@ -27,4 +28,5 @@ export const movePipeline = async (args: Args): Promise<void> => {
     `/p2/workspaces/${workspaceId}/repositories/${repositoryId}/issues/${issueNumber}/moves`,
     { pipeline_id: pipelineId, position: "bottom" },
   );
+  infoLog(`Move pipeline: ${repository}/${issueNumber} => ${pipeline}`)
 };

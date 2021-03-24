@@ -65,6 +65,7 @@ const args: Args = {
 
 export const getCoreCommand = (): string => coreCommand;
 export const verbose = (): boolean => args.verbose;
+
 export const getOwner = (): string => requireString(args.owner, "--owner");
 export const getRepository = (): string =>
   requireString(args.repository, "--repository");
