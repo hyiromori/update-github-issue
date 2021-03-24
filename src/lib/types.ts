@@ -1,6 +1,6 @@
 export interface IssueInfo {
-  url: string
-  organization: string
-  repository: string
-  issueNumber: number
+  url: string;
+  organization: string;
+  repository: string;
+  issueNumber: number;
 }

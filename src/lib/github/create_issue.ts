@@ -1,22 +1,22 @@
-import { IssueInfo } from "../types.ts";
 import { getGitHubAccessToken } from "../env.ts";
 import { verbose } from "../args.ts";
 
 const GitHubURL = "https://api.github.com";
 
-export interface UpdateIssueData {
+export interface CreateIssueData {
+  title: string;
   labels?: string[];
 }
 
-// https://docs.github.com/en/rest/reference/issues#update-an-issue
-export const updateIssue = async (
-  issue: IssueInfo,
-  data: UpdateIssueData,
+// https://docs.github.com/en/rest/reference/issues#create-an-issue
+export const createIssue = async (
+  owner: string,
+  repository: string,
+  data: CreateIssueData,
 ): Promise<void> => {
-  const { organization, repository, issueNumber } = issue;
-  const path = `/repos/${organization}/${repository}/issues/${issueNumber}`;
+  const path = `/repos/${owner}/${repository}/issues`;
   const response = await fetch(`${GitHubURL}${path}`, {
-    method: "PATCH",
+    method: "POST",
     headers: {
       Authorization: `token ${getGitHubAccessToken()}`,
       Accept: "application/vnd.github.v3+json",

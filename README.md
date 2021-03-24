@@ -18,8 +18,8 @@ GitHub Issue の情報をZenHubを含めて操作するDeno製のCLIツール。
 
 ### ダウンロード
 
-[Releases](https://github.com/hyiromori/update-github-issue/releases) から使用したいバージョンのバイナリをダウンロードします。
-バイナリをパスが通ったディレクトリに移動し、実行権限を付与してください。
+[Releases](https://github.com/hyiromori/update-github-issue/releases)
+から使用したいバージョンのバイナリをダウンロードします。 バイナリをパスが通ったディレクトリに移動し、実行権限を付与してください。
 
 ## 実行方法
 
@@ -46,8 +46,7 @@ $ github-issue update \
 
 ### ZenHub Workspace ID の取得方法
 
-https://github.com/ZenHubIO/API#notes-1 を参照してください。
-ZenHub の URL 中にあります。
+https://github.com/ZenHubIO/API#notes-1 を参照してください。 ZenHub の URL 中にあります。
 
 ## 更新可能な項目
 
