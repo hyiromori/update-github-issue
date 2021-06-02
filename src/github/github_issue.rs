@@ -3,17 +3,17 @@ use crate::github::github_api::request_github_graphql_api;
 use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize, Debug)]
-pub struct ResponseRoot {
+struct ResponseRoot {
     data: Data,
 }
 
 #[derive(Deserialize, Debug)]
-pub struct Data {
+struct Data {
     repository: Repository,
 }
 
 #[derive(Deserialize, Debug)]
-pub struct Repository {
+struct Repository {
     issue: GitHubIssue,
 }
 
@@ -60,8 +60,6 @@ pub async fn get_github_issue(
     };
 
     let response = request_github_graphql_api(query, variables).await?;
-    // let data = response.text().await?;
-    // println!("{:#?}", data);
     let data = response.json::<ResponseRoot>().await?;
     Ok(data.data.repository.issue)
 }
