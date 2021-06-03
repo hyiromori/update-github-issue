@@ -1,7 +1,8 @@
 #![allow(non_snake_case)]
-use serde::{Deserialize, Serialize};
+use std::io::{Error, ErrorKind};
 use base64::decode;
 use regex::Regex;
+use serde::{Deserialize, Serialize};
 use crate::github::github_api::request_github_graphql_api;
 
 #[derive(Deserialize, Debug)]
@@ -27,7 +28,7 @@ struct Variables {
 
 pub async fn get_github_repo_id(
     owner: &String,
-    repo: &String
+    repo: &String,
 ) -> Result<String, Box<dyn std::error::Error>> {
     let query = String::from(
         "query ($owner: String!, $repo: String!) {
@@ -38,12 +39,14 @@ pub async fn get_github_repo_id(
     );
     let variables = Variables {
         owner: String::from(owner),
-        repo:String::from(repo),
+        repo: String::from(repo),
     };
 
     let response = request_github_graphql_api(query, variables).await?;
-    // let data = response.text().await?;
-    // println!("{:#?}", data);
+    if response.status() != 200 {
+        return Err(Box::new(Error::new(ErrorKind::Other, "Failed get_github_repo_id")));
+    }
+
     let data = response.json::<ResponseRoot>().await?;
     let raw_id = String::from_utf8(decode(data.data.repository.id).unwrap()).unwrap();
 
