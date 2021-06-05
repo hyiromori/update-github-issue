@@ -1,6 +1,7 @@
 mod github;
 mod zenhub;
 
+use std::env;
 use crate::github::github_issue::get_github_issue;
 use crate::github::github_repo::get_github_repo_id;
 use crate::zenhub::workspace::get_zenhub_workspaces;
@@ -11,6 +12,11 @@ use crate::zenhub::structs::Board;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let mut args: Vec<String> = env::args().collect();
+    let subcommand = String::from(&args[1]);
+    let args: Vec<String> = args.split_off(2);
+    println!("{:?}, {:?}", &subcommand, args);
+
     let owner: String = String::from("Connehito");
     let repo: String = String::from("yorozu-issues");
     // let issue_number: i32 = 350;
