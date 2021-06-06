@@ -1,10 +1,13 @@
 mod github;
+mod util;
 mod zenhub;
 
+extern crate dirs;
 use crate::github::github_issue::get_github_issue;
 use crate::github::github_owners::get_github_owners;
 use crate::github::github_repo::get_github_repos;
 use crate::github::structs::Owner;
+use crate::util::config::{get_config_file_path, read_config, write_config, Config};
 use crate::zenhub::board::get_board;
 use crate::zenhub::epic::get_epic_issues;
 use crate::zenhub::structs::Board;
@@ -14,10 +17,11 @@ use std::{env, fmt};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // let mut args: Vec<String> = env::args().collect();
-    // let subcommand = String::from(&args[1]);
-    // let args: Vec<String> = args.split_off(2);
-    // println!("{:?}, {:?}", &subcommand, args);
+    let mut args: Vec<String> = env::args().collect();
+    let subcommand = String::from(&args[1]);
+    let args: Vec<String> = args.split_off(2);
+
+    println!("{:?}", read_config().unwrap().workspace_name);
 
     let owners = get_github_owners().await?;
     let owner = select_in_menu(&owners);
@@ -57,6 +61,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 workspace_name = val.name,
                 workspace_id = val.id
             );
+            write_config(&Config {
+                workspace_id: String::from(&val.id),
+                workspace_name: String::from(&val.name),
+            });
+            println!("Config saved: {}", get_config_file_path());
         }
     }
 
