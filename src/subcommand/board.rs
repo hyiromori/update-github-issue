@@ -1,8 +1,9 @@
 use crate::github::github_repo::get_github_repo_by_id;
+use crate::github::structs::Repository;
 use crate::util::config::Config;
 use crate::util::select::select_in_menu;
 use crate::zenhub::board::get_pipelines;
-use crate::zenhub::structs::Board;
+use std::future::Future;
 
 #[derive(Debug, Clone)]
 enum BoardAction {
@@ -23,13 +24,18 @@ pub async fn board(config: &Config, _args: &Vec<String>) -> Result<(), Box<dyn s
 
     match action {
         BoardAction::Pipeline => {
-            let repositories = &config.workspace.repositories;
-            let repo = get_github_repo_by_id(repositories.first().unwrap()).await?;
-            println!("{:#?}", repo);
+            let repo_ids = &config.workspace.repositories;
 
-            let pipelines = get_pipelines(&config.workspace.id, &repo.id).await?;
-            let pipeline = select_in_menu(&String::from("Select pipeline"), &pipelines);
-            println!("{:#?}", pipeline);
+            // TODO: Parallel request
+            let mut repositories: Vec<Repository> = vec![];
+            for repo_id in repo_ids {
+                repositories.push(get_github_repo_by_id(&repo_id).await?);
+            }
+            println!("{:#?}", repositories);
+
+            // let pipelines = get_pipelines(&config.workspace.id, &repo.id).await?;
+            // let pipeline = select_in_menu(&String::from("Select pipeline"), &pipelines);
+            // println!("{:#?}", pipeline);
         }
     };
 

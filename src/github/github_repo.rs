@@ -1,10 +1,9 @@
 #![allow(non_snake_case)]
 use crate::github::github_api::{get_github_api_v3, request_github_graphql_api};
 use crate::github::structs::{Owner, OwnerForRepo, OwnerType, Repository};
-use base64::{decode, encode};
+use base64::decode;
 use regex::Regex;
 use serde::{Deserialize, Serialize};
-use std::fmt;
 use std::io::{Error, ErrorKind};
 
 #[derive(Deserialize, Debug)]
